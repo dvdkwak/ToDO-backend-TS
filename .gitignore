@@ -1,0 +1,11 @@
+# MAC FILES
+.DS*
+
+# VSCODE
+.vscode
+
+# NODE
+node_modules
+
+# BUILD
+dist/*

@@ -1,0 +1,27 @@
+version: '3.9'
+
+name: 'dojang-express'
+
+services:
+
+  db:
+    container_name: ${PROJECT_NAME}_db
+    hostname: ${PROJECT_NAME}_db
+    image: mysql:${MYSQL_VERSION}
+    restart: unless-stopped
+    ports:
+      - 3001:3306
+    networks:
+      - web
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+
+networks:
+  default:
+    name: web
+  web:
+    name: ${NETWORK_NAME}
+    driver: bridge
