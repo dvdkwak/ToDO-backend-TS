@@ -4,7 +4,8 @@ import { PrismaClient, Prisma } from '@prisma/client';
 const todoRouter = express.Router();
 const prisma = new PrismaClient();
 
-todoRouter.post("/create", async (req, res) => {
+// Post request for a ToDO.
+todoRouter.post("/", async (req, res) => {
   let todo: Prisma.TodoCreateInput;
   todo = {
     title: req.body.title,
@@ -18,6 +19,15 @@ todoRouter.post("/create", async (req, res) => {
       console.error(e);
       res.sendStatus(500);
     });
+});
+
+// Retrieving all ToDO's.
+todoRouter.get("/", async (req, res) => {
+  const todos = await prisma.todo.findMany();
+  const data = {
+    todos
+  };
+  res.json(data);
 });
 
 export default todoRouter;
