@@ -30,4 +30,24 @@ todoRouter.get("/", async (req, res) => {
   res.json(data);
 });
 
+// Updating a single ToDO
+todoRouter.patch("/", async(req, res) => {
+  const updatePost = await prisma.todo.update({
+    where: {
+      id: req.body.id
+    },
+    data: {
+      title: req.body.title,
+      body: req.body.body,
+      status: req.body.status
+    }
+  }).then(() => {
+    res.sendStatus(200);
+  })
+  .catch((e) => {
+    console.error(e);
+    res.sendStatus(500);
+  });
+});
+
 export default todoRouter;
